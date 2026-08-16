@@ -486,6 +486,12 @@ async def analyze(
     prompt = f"""
 Analyze this student's career readiness.
 
+IMPORTANT:
+The user has explicitly selected the target role below.
+You MUST use this exact role throughout the entire report.
+Do NOT change it, infer a different role, or replace it
+with a role found in the resume.
+
 TARGET ROLE:
 {role}
 
@@ -495,15 +501,22 @@ GITHUB USERNAME:
 RESUME:
 {resume_text[:12000]}
 
-Please:
+Your tasks:
 
-1. Analyze the student's skills against the target role.
-2. Identify important skill gaps.
+1. Analyze the student's skills against the EXACT target role.
+2. Identify skill gaps specifically for the EXACT target role.
 3. Analyze the student's GitHub activity.
-4. Suggest suitable portfolio projects.
-5. Find relevant job opportunities.
-6. Combine the relevant information into one concise
-   Career Readiness Report.
+4. Suggest projects specifically for the EXACT target role.
+5. Find job opportunities relevant to the EXACT target role.
+6. Produce one concise Career Readiness Report.
+
+The report MUST begin with:
+
+# Career Readiness Report
+
+**Target Role:** {role}
+
+Never replace "{role}" with another job title.
 
 Use the available tools when necessary.
 """
